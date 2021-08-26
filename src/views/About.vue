@@ -16,13 +16,13 @@
           </div>
     </div>
     <div class="caozuo">
-        <p class="yi"><img src="@/assets/4.png" alt="" class="ji"><input type="text" placeholder="请输入手机号" class="xia" v-model="mobile"><span class="z">获取验证码</span></p>
+        <p class="yi"><img src="@/assets/4.png" alt="" class="ji"><input type="text" placeholder="请输入手机号" class="xia" v-model="mobile"><span class="z" @click="dianji" v-show="!kai">获取验证码</span><span v-show="kai" class="fu">{{num}}</span></p>
         <div class="xianxian"></div>
-        <p class="er"><img src="@/assets/5.png" alt="" class="dun"><input type="text" placeholder="请输入验证码" class="xia"></p>
+        <p class="er"><img src="@/assets/5.png" alt="" class="dun"><input type="text" placeholder="请输入验证码" class="xia" v-model="shuru"></p>
         <div class="xianxian"></div>
     </div>
     <div class="dl">
-        <p>登 录</p>
+        <p @click="denglu">登 录</p>
     </div>
     <div class="xiaozi">
       <p>*未注册的手机号将自动注册</p>
@@ -34,24 +34,56 @@
 export default {
   data(){
     return{
-      mobile:'18635935004',
-      sms_type:'login'
+      mobile:'',
+      sms_type:'login',
+      shuru:'',
+      num:60,
+      kai:false
     }
-  },
-  created(){
-    this.shuju()
   },
   methods:{
     shuju(){
       this.$axios.post('http://120.53.31.103:84/api/app/smsCode',{mobile:this.mobile,sms_type:this.sms_type}).then(res=>{
         console.log(res)
       })
+    },
+    dianji(){
+      var aa = /^[1]([3-9])[0-9]{9}$/
+      if(!aa.test(this.mobile)){
+        alert('请输入正确的手机格式')
+      }else{
+         this.shuju()
+         this.xun()
+         this.kai =true
+      }
+    },
+    xun(){
+      this.num --
+      if(this.num > 0){
+       var xx = setTimeout(()=>{
+        this.xun()
+      },1000)
+      }else{
+        clearTimeout(xx)
+        this.kai = false
+      }
+    },
+    denglu(){
+      if(this.shuru==''){
+        alert('请输入验证码')
+        return false
+      }else{
+        alert('登录成功')
+      }
     }
   }
 }
 </script>
 
 <style>
+.fu{
+  position: absolute
+}
 .xx{
   margin-left: 110px
 }
