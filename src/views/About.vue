@@ -73,7 +73,12 @@ export default {
         alert('请输入验证码')
         return false
       }else{
-        alert('登录成功')
+        this.$axios.post('http://120.53.31.103:84/api/app/login',{
+          mobile:this.mobile,sms_code:this.shuru,type:2,client:'1'
+        }).then(res=>{
+          console.log(res,'dl')
+        })
+        
       }
     }
   }
