@@ -31,22 +31,27 @@
   </div>
 </template>
 <script>
+import  service from '@/http/service.js'
 export default {
   data(){
     return{
       mobile:'',
       sms_type:'login',
       shuru:'',
-      num:60,
+      num:30,
       kai:false
     }
   },
+ created(){
+   
+ },
   methods:{
-    shuju(){
-      this.$axios.post('http://120.53.31.103:84/api/app/smsCode',{mobile:this.mobile,sms_type:this.sms_type}).then(res=>{
-        console.log(res)
+      async shuju(){
+      var res =await service.post('/smsCode',{
+        mobile:this.mobile,sms_type:this.sms_type
       })
-    },
+        console.log(res)
+    },  
     dianji(){
       var aa = /^[1]([3-9])[0-9]{9}$/
       if(!aa.test(this.mobile)){
@@ -77,6 +82,7 @@ export default {
           mobile:this.mobile,sms_code:this.shuru,type:2,client:'1'
         }).then(res=>{
           console.log(res,'dl')
+          alert('登录成功')
         })
         
       }
