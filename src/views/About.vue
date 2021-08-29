@@ -7,7 +7,7 @@
           <div class="zuo">
               <img src="@/assets/2.png" alt="" class="tu">
           </div>
-          <div class="you">
+          <div class="you111">
               <p><b>每时每刻  因你而设</b></p>
               <div class="tiao">
 
@@ -16,9 +16,9 @@
           </div>
     </div>
     <div class="caozuo">
-        <p class="yi"><img src="@/assets/4.png" alt="" class="ji"><input type="text" placeholder="请输入手机号" class="xia" v-model="mobile"><span class="z" @click="dianji" v-show="!kai">获取验证码</span><span v-show="kai" class="fu">{{num}}</span></p>
+        <p class="yi"><img src="@/assets/4.png" alt="" class="ji"><input type="text" placeholder="请输入手机号" class="xia222" v-model="mobile"><span class="z" @click="dianji" v-show="!kai">获取验证码</span><span v-show="kai" class="fu">{{num}}</span></p>
         <div class="xianxian"></div>
-        <p class="er"><img src="@/assets/5.png" alt="" class="dun"><input type="text" placeholder="请输入验证码" class="xia" v-model="shuru"></p>
+        <p class="er"><img src="@/assets/5.png" alt="" class="dun"><input type="text" placeholder="请输入验证码" class="xia222" v-model="shuru"></p>
         <div class="xianxian"></div>
     </div>
     <div class="dl">
@@ -32,6 +32,7 @@
 </template>
 <script>
 import  service from '@/http/service.js'
+import { json } from 'body-parser';
 export default {
   data(){
     return{
@@ -39,7 +40,8 @@ export default {
       sms_type:'login',
       shuru:'',
       num:30,
-      kai:false
+      kai:false,
+      add:[]
     }
   },
  created(){
@@ -80,9 +82,15 @@ export default {
       }else{
         this.$axios.post('http://120.53.31.103:84/api/app/login',{
           mobile:this.mobile,sms_code:this.shuru,type:2,client:'1'
-        }).then(res=>{
-          console.log(res,'dl')
-          alert('登录成功')
+        }
+        ).then(res=>{
+          this.add = res.data.data
+          console.log(res,'看一看')
+          sessionStorage.setItem('shuju',JSON.stringify(this.add))
+          if(res.data.code == 200){
+            this.$router.push('/ziji')
+          }
+          // alert('登录成功')
         })
         
       }
@@ -141,7 +149,7 @@ color: white
 .er{
   margin-top: 50px;
 }
-.xia{
+.xia222{
   height: 35px;
   position: absolute;
   margin-top: 15px;
@@ -165,7 +173,7 @@ color: white
   height: 2px;
   background: orange
 }
-.you{
+.you111{
     margin-top: 80px;
     font-size: 18px
 }
