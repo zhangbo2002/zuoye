@@ -17,17 +17,16 @@
     </div>
     <!-- <span class="z" @click="dianji" v-show="!kai">获取验证码</span><span v-show="kai" class="fu">{{num}}</span> -->
     <div class="caozuo">
-        <p class="yi"><img src="@/assets/4.png" alt="" class="ji"><input type="text" placeholder="请输入手机号" class="xia222" v-model="mobile"><p class="fu" @click="dianji">{{ttt}}</p></p>
-        <div class="xianxian"></div>
-        <p class="er"><img src="@/assets/5.png" alt="" class="dun"><input type="text" placeholder="请输入验证码" class="xia222" v-model="shuru"></p>
+       <van-field v-model="tel"  label="手机号"  class="ui"/>
+       <van-field v-model="tel2"  label="密码"  class="ai"/>
         <div class="xianxian"></div>
     </div>
     <div class="dl">
         <p @click="denglu">登 录</p>
     </div>
     <div class="xiaozi">
-      <p class="qq7">*未注册的手机号将自动注册</p>
-      <p class="xx1" @click="mmca">密码登录</p>
+      <p class="aa">找回密码</p>
+      <p class="xx" @click="qq">验证码登录</p>
     </div>
   </div>
 </template>
@@ -38,83 +37,43 @@ import { setInterval, clearInterval } from 'timers';
 export default {
   data(){
     return{
-      mobile:'',
-      sms_type:'login',
-      shuru:'',
-      ttt:'获取验证码',
-      // num:5,
-      kai:false,
-      add:[]
+    tel:'',
+    tel2:''
     }
   },
  created(){
    
  },
   methods:{
-    
-      async shuju(){
-      var res =await service.post('/smsCode',{
-        mobile:this.mobile,sms_type:this.sms_type
+      async denglu(){
+      var res =await service.post('/login',{
+        mobile:this.tel,password:this.tel2,client:'1',type:1
       })
+      if(res.data.code == 200){
+        this.tel=''
+        this.tel2=''
+        this.$router.push('/ziji')
+        this.$store.commit('mimatoken',res.data.data)
+      }
         console.log(res)
     },  
-    dianji(){
-      var aa = /^[1]([3-9])[0-9]{9}$/
-      if(!aa.test(this.mobile)){
-        alert('请输入正确的手机格式')
-      }else{
-         this.shuju()
-        this.xijie()
-         this.kai =true
-      }
-    },
-    xijie(){
-      console.log(11111)
-      var shu = 5
-      var aa = setInterval(()=>{
-          this.ttt = `还有${shu}秒`
-          if(shu <= 0){
-            clearInterval(aa)
-            this.ttt = '获取验证码'
-          }
-            shu--
-      },1000)
-    },
-    denglu(){
-      if(this.shuru==''){
-        alert('请输入验证码')
-        return false
-      }else{
-        this.$axios.post('http://120.53.31.103:84/api/app/login',{
-          mobile:this.mobile,sms_code:this.shuru,type:2,client:'1'
-        }
-        ).then(res=>{
-          this.add = res.data.data
-          console.log(res,'看一看')
-          // sessionStorage.setItem('shuju',JSON.stringify(this.add))
-          if(res.data.code == 200){
-            this.$router.push('/ziji')
-           this.$store.commit('token',this.add.remember_token)
-          }
-          // alert('登录成功')
-        })
-        
-      }
-    },
-   async mmca(){
-        this.$router.push('/mimimi')
-          var res =await service.post('/login',{
-        mobile:this.mobile,sms_code:this.shuru,type:1,client:'1'
-      })
-      console.log(res,'mima')
-    },
+    qq(){
+      this.$router.push('/about')
+    }
   }
 }
 </script>
 
 <style>
-.qq7{
-  margin-left: 10px;
+.ui{
+  width: 80vw;
+  margin: auto;
+  margin-top: 20px;
+}
+.ai{
+  width: 80vw;
+  margin: auto;
+  margin-top: 20px;
 }
 .fu{
   position: absolute;
@@ -122,8 +81,11 @@ export default {
   margin-top: -40px;
   color: red
 }
-.xx1{
-  margin-left: 110px
+.xx{
+  margin-left: 190px
+}
+.aa{
+  margin-left: 30px
 }
 .xiaozi{
   display: flex;
@@ -144,9 +106,7 @@ export default {
   /* margin-top: 10px */
 }
 .yi{
-  margin-top: 20px;
-  width: 80vw;
-  
+  margin-top: 20px
 }
 .xianxian{
   width: 310px;
@@ -180,7 +140,7 @@ color: white
 }
 .caozuo{
   width: 100%;
-  height: 240px;
+  height: 200px;
   /* background: blue; */
   position: relative;
 }

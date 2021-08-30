@@ -1,24 +1,20 @@
 <!--  -->
 <template>
-    <div>
-        <div class="tou" v-show='!kai'>
-            <img
-                src="@/assets/222.png"
-                alt=""
-            >
-            <p class="ding" @click="$router.push('/about')">登录/注册</p>
-        </div>
-        <div class="tou2" v-show="kai">
+    <div class="zuida">
+       
+        <div class="tou2">
              <img
                 src="@/assets/333.png"
                 alt=""
                 class="xxx"
             >
-            <div class="datou">
+                <p class="ding" @click="$router.push('/about')" v-if="this.$store.state.tokengg == ''"> 登录/注册</p>
+            <div class="datou"  v-else>
                 <p class="da1"></p>
-                <p class="da2">{{arr.nickname}}</p>
+                <p class="da2">{{$store.state.tokengg.nickname}}</p>
                 <p class="da3" @click="tuichu">退出登录</p>
             </div>
+        
         </div>
         <div >
             <van-grid :column-num="3">
@@ -55,7 +51,7 @@
                 <van-cell title="地址管理" value=">" />
                 <van-cell title="关于我们" value=">" />
                 <van-cell title="意见反馈" value=">" />
-                <van-cell title="设置" value=">" />
+                <van-cell title="设置" value=">"  @click="$router.push('/mima')"/>
                 </van-cell-group>
         </div>
         </div>
@@ -83,26 +79,34 @@ export default {
   //方法集合
   methods: {
     tuichu(){
-        sessionStorage.removeItem('shuju')
+       this.$store.commit('shanchutoken')
     }
   },
   //生命周期 - 创建完成（可以访问当前this实例）
   created() {
-      if(!this.arr.remember_token){
-          this.kai = false
-      }else{
-          this.kai = true
-        //   asdasdasdasdasd
-      }
+    console.log( this.$store.state.tokengg,'细节死了')
   }
 };
 </script>
 <style>
+.zuida{
+  width: 100vw;
+  height: 100%;
+}
+.tututu{
+    width: 100%;
+    height: 100%
+}
 .da1{
     width: 80px;
     height: 80px;
     background: blue;
     border-radius: 50%;
+}
+.da3{
+  position: absolute;
+  right: 50px;
+  bottom: -10px
 }
 .datou{
     width: 100vw;
@@ -120,12 +124,12 @@ export default {
 .zuihou{
     width: 100vw;
     height: 350px;
-    background: #9999
+    background: #f7f8fa
 }
 .tiao{
     width: 100vw;
     height: 20px;
-    background: #9999
+    background: #f7f8fa
 }
 .gg{
     width: 100vw;

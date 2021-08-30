@@ -1,7 +1,16 @@
 <!--  -->
+import { constants } from 'http2';
 <template>
-    <div>
-        这是课程页面
+    <div class="zuida">
+       <div class="hou" v-for="(item,index) in $store.state.laoshi" :key="index" @click="dan(index)"> 
+        <div class="hzuo" >
+          <img :src="item.teacher_avatar" alt="" class="htu">
+        </div>
+        <div class="hyou">
+          <p>{{item.teacher_name}}</p>
+          <p class="xxx1">{{item.introduction}}</p>
+        </div>
+      </div>
     </div>
 </template>
 
@@ -24,11 +33,13 @@ computed: {},
 watch: {},
 //方法集合
 methods: {
-
+    dan(index){
+        console.log(index,'qwe')
+    }
 },
 //生命周期 - 创建完成（可以访问当前this实例）
 created() {
-
+    console.log(this.$store.state.laoshi);
 },
 //生命周期 - 挂载完成（可以访问DOM元素）
 mounted() {
@@ -43,6 +54,33 @@ destroyed() {}, //生命周期 - 销毁完成
 activated() {}, //如果页面有keep-alive缓存功能，这个函数会触发
 }
 </script>
-<style lang='scss' scoped>
-
+<style>
+.xxx1{
+  margin-top: 10px;
+}
+.hou{
+  width: 90vw;
+  height: 80px;
+  background: white;
+  margin: auto;
+  border-radius: 15px;
+  display: flex;
+  margin-top: 20px
+}
+.hyou{
+  margin-top: 20px;
+  margin-left: 20px
+}
+.hzuo{
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-top: 20px;
+  margin-left: 10px
+}
+.htu{
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
 </style>

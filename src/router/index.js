@@ -8,6 +8,7 @@ const routes = [
     path: '/ziji',
     name: 'ziji',
     component: ()=>import('@/views/ziji.vue'),
+    redirect:'/sy',
     children:[
       {
         path:'/sy',
@@ -44,6 +45,16 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   },
+  {
+    path:'/mima',
+    name:'mima',
+    component:()=>import('@/views/mima')
+  },
+  {
+    path:'/mimimi',
+    name:'mimimi',
+    component:()=>import('@/views/mimimi.vue')
+  }
 ]
 
 const router = new VueRouter({

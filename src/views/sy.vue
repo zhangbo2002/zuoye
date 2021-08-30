@@ -45,7 +45,7 @@
       >
     </div>
     <div class="zjs">
-       <div class="jiangshi">
+       <div class="jiangshi" @click="jiangshi">
       <div class="hong"></div>
       <p class="jsz">资深讲师</p>
       <div class="yyy">更多></div>
@@ -63,8 +63,8 @@
           >
         </div>
         <div class="xxx">
-          <p>{{item.teacher_name}}</p>
-          <p>{{item.introduction}}</p>
+          <p >{{item.teacher_name}}</p>
+          <p class="xxx1">{{item.introduction}}</p>
         </div>
       </div>
     </div>
@@ -84,12 +84,12 @@
         </div>
         <div class="zyou">
             <p>{{item.title}}</p>
-            <p>细节</p>
+            <p class="xxx1">细节</p>
         </div>
       </div>
     </div>
     <div class="zui">
-       <div class="jiangshi">
+       <div class="jiangshi" @click="jiangshi">
       <div class="hong"></div>
       <p class="jsz">名师</p>
       <div class="yyy">更多></div>
@@ -100,7 +100,7 @@
         </div>
         <div class="hyou">
           <p>{{item.teacher_name}}</p>
-          <p>{{item.introduction}}</p>
+          <p class="xxx1">{{item.introduction}}</p>
         </div>
       </div>
     </div>
@@ -137,6 +137,10 @@ export default {
       this.add = res.data.data[1].list;
       this.app = res.data.data[2].list;
       console.log(this.app, "shujue");
+    },
+    jiangshi(){
+      this.$router.push('/kc')
+      this.$store.commit('jiangshi',this.app)
     }
   },
   //生命周期 - 创建完成（可以访问当前this实例）
@@ -147,6 +151,9 @@ export default {
 };
 </script>
 <style>
+.xxx1{
+  margin-top: 10px;
+}
 .htu{
   width: 100%;
   height: 100%;
@@ -162,7 +169,8 @@ export default {
   margin-top: 20px
 }
 .hyou{
-  margin-top: 20px
+  margin-top: 20px;
+  margin-left: 20px
 }
 .hzuo{
   width: 50px;
@@ -174,7 +182,7 @@ export default {
 .zui{
   width: 100vw;
   height: 700px;
-  background: #9999
+  background: #f7f8fa;
 }
 .ss{
   width: 100%;
@@ -184,6 +192,7 @@ export default {
   margin-top: 20px;
   height: 50vw;
   /* background: green */
+  margin-left: 20px
 }
 .zzuo{
   width: 50px;
@@ -194,7 +203,7 @@ export default {
 .zhong{
   width: 100vw;
   height: 800px;
-  background: #9999;
+  background: #f7f8fa;
   /* margin-top: 20px */
 }
 .zhong1{
@@ -234,6 +243,7 @@ export default {
   height: 50px;
   /* background: blue; */
   margin-top: 16px;
+  margin-left: 25px
 }
 .shishi {
   width: 100vw;
@@ -246,12 +256,12 @@ export default {
 .zjs {
   width: 100vw;
   height: 500px;
-  background: #9999;
+  background: #f7f8fa;
 }
 .jiangshi {
   width: 100vw;
   height: 40px;
-  background: #9999;
+  background: #f7f8fa;
   display: flex;
 }
 .hong {
