@@ -1,8 +1,7 @@
 <!--  -->
-import { constants } from 'http2';
 <template>
     <div class="zuida">
-       <div class="hou" v-for="(item,index) in $store.state.laoshi" :key="index" @click="dan(index)"> 
+       <div class="hou" v-for="(item,index) in $store.state.laoshi" :key="index" @click="dan(index,item.teacher_id)"> 
         <div class="hzuo" >
           <img :src="item.teacher_avatar" alt="" class="htu">
         </div>
@@ -33,8 +32,10 @@ computed: {},
 watch: {},
 //方法集合
 methods: {
-    dan(index){
-        console.log(index,'qwe')
+    dan(index,id){
+      console.log(this.$store.state.laoshi)
+       this.$store.commit('xq',{shuju:this.$store.state.laoshi[index],id:id})
+       this.$router.push('/xq')
     }
 },
 //生命周期 - 创建完成（可以访问当前this实例）

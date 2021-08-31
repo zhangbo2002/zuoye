@@ -54,6 +54,21 @@ const routes = [
     path:'/mimimi',
     name:'mimimi',
     component:()=>import('@/views/mimimi.vue')
+  },
+  {
+    path:'/qiandao',
+    name:'qiandao',
+    component:()=>import('@/views/qiandao.vue')
+  },
+  {
+    path:'/xq',
+    name:'xq',
+    component:()=>import('@/views/xq.vue')
+  },
+  {
+    path:'/xqxq/:id',
+    name:'xqxq',
+    component:()=>import('@/views/xqxq.vue')
   }
 ]
 

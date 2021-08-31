@@ -8,7 +8,8 @@ const vuexLocal = new VuexPersistence({
 export default new Vuex.Store({
   state: {
     tokengg:'',
-    laoshi:[]
+    laoshi:[],
+    xqzy:[]
   },
   mutations: {
     token(state,data){
@@ -23,6 +24,10 @@ export default new Vuex.Store({
     },
     mimatoken(state,data){
       state.tokengg = data
+    },
+    xq(state,data){
+      state.xqzy = data
+      console.log(state.xqzy)
     }
   },
   actions: {
