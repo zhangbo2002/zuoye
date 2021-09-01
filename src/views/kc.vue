@@ -1,12 +1,12 @@
 <!--  -->
 <template>
     <div class="zuida">
-       <div class="hou" v-for="(item,index) in $store.state.laoshi" :key="index" @click="dan(index,item.teacher_id)"> 
+       <div class="hou" v-for="(item,index) in arr" :key="index" @click="dan(index,item.id)"> 
         <div class="hzuo" >
-          <img :src="item.teacher_avatar" alt="" class="htu">
+          <img :src="item.avatar" alt="" class="htu">
         </div>
         <div class="hyou">
-          <p>{{item.teacher_name}}</p>
+          <p>{{item.real_name}}</p>
           <p class="xxx1">{{item.introduction}}</p>
         </div>
       </div>
@@ -16,14 +16,14 @@
 <script>
 //这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 //例如：import 《组件名称》 from '《组件路径》';
-
+import qin from '@/http/service.js'
 export default {
 //import引入的组件需要注入到对象中才能使用
 components: {},
 data() {
 //这里存放数据
 return {
-
+  arr:[]
 };
 },
 //监听属性 类似于data概念
@@ -34,13 +34,16 @@ watch: {},
 methods: {
     dan(index,id){
       console.log(this.$store.state.laoshi)
-       this.$store.commit('xq',{shuju:this.$store.state.laoshi[index],id:id})
+       this.$store.commit('xq',{shuju:this.arr,id:id,dian:index})
        this.$router.push('/xq')
     }
 },
 //生命周期 - 创建完成（可以访问当前this实例）
-created() {
-    console.log(this.$store.state.laoshi);
+async created() {
+    var res = await qin('/teacher/search/attrs')
+  
+    this.arr = res.data.data.list
+      console.log(this.arr,'课程')
 },
 //生命周期 - 挂载完成（可以访问DOM元素）
 mounted() {

@@ -2,7 +2,9 @@ import Vue from 'vue'
 import { Button, List, Cell, Tabbar, TabbarItem, Toast, Search, Swipe, SwipeItem, Grid,
      GridItem,CellGroup,
      Tab,Tabs,
-     Field,Calendar,} from 'vant'
+     Field,Calendar,
+     Popup,Collapse,CollapseItem,
+     Empty} from 'vant'
 Vue.use(Button)
 Vue.use(List)
 Vue.use(Tabbar).use(TabbarItem)
@@ -18,3 +20,7 @@ Vue.use(Field);
 Vue.use(Calendar);
 Vue.use(Tab);
 Vue.use(Tabs);
+Vue.use(Popup);
+Vue.use(Collapse);
+Vue.use(CollapseItem);
+Vue.use(Empty);

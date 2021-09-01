@@ -9,7 +9,8 @@ export default new Vuex.Store({
   state: {
     tokengg:'',
     laoshi:[],
-    xqzy:[]
+    xqzy:[],
+    qiandao:[]
   },
   mutations: {
     token(state,data){
@@ -27,7 +28,11 @@ export default new Vuex.Store({
     },
     xq(state,data){
       state.xqzy = data
-      console.log(state.xqzy)
+      console.log(state.xqzy,'222222222')
+    },
+    rili(state,data){
+      state.qiandao.push(data)
+      console.log(state.qiandao,'xijie')
     }
   },
   actions: {

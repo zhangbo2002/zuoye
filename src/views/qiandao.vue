@@ -26,8 +26,10 @@
       title="日历"
       :round="true"
       :poppable="false"
+      :formatter="formatter" 
       :show-confirm="false"
       :style="{ height: '400px',width:'80vw',position:'absolute'}"
+      @select='shi'
       class="xx"
     />
     <div class="ji">
@@ -74,6 +76,7 @@
 
 </template>
 <script>
+import qin from '@/http/service.js'
 import { Dialog } from 'vant';
 export default {
   data() {
@@ -83,17 +86,45 @@ export default {
     };
   },
   methods: {
-    formatDate(date) {
-      return `${date.getMonth() + 1}/${date.getDate()}`;
+     formatter(day) {
+      const month = day.date.getMonth() + 1;
+      const date = day.date.getDate();
+     
+      let  qq = new Date()
+      const nian = qq.getFullYear()
+      const yue = qq.getMonth()+1
+      const ri = qq.getDate()
+       console.log(yue,ri)
+       console.log(day,'日历')
+       if(month == yue && date == ri){
+          day.bottomInfo = '+1';
+       }
+      // if (month === 5) {
+      //   if (date === 1) {
+      //     day.topInfo = '劳动节';
+      //   } else if (date === 4) {
+      //     day.topInfo = '青年节';
+      //   } else if (date === 11) {
+      //     day.text = '今天';
+      //   }
+      // }
+
+      // if (day.type === 'start') {
+      //   day.bottomInfo = '入住';
+      // } else if (day.type === 'end') {
+       
+      // }
+
+      return day;
     },
-    onConfirm(date) {
-      this.show = false;
-      this.date = this.formatDate(date);
-      console.log(this.data, "kanyikan");
-    },
-    shi(e) {
+   async shi(e) {
       var aa = `${e.getMonth() + 1}/${e.getDate()}`;
-      console.log(aa);
+      console.log(aa,'2213212');
+      // var res = await qin.get('/user/integral/signRecord?date=2021-9-1&?data='+aa)
+      // console.log(res,'签到')
+      // alert ('已签到'+aa)
+      // this.$store.commit('rili',aa)
+      // return false
     },
     chulai() {
       Dialog.alert({

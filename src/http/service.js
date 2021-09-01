@@ -1,11 +1,12 @@
 import axios from 'axios'
 import { Toast } from 'vant'
 import { baseUrl } from '../config/index'
+import store from '@/store/index.js';
 //基础配置
 let service = axios.create({
     baseURL:baseUrl,
     // withcredentials:true,
-    timeout:5000
+    timeout:50000
 })
 //请求拦截
 let loding;
@@ -17,7 +18,7 @@ service.interceptors.request.use(
                   message: "加载中...",
                   forbidClick: true
         });
-        // config.headres["Authorization"] = sessionStorage.getItem("token")
+        config.headers["Authorization"] ='Bearer '+ store.state.token 
         return config
     },(error)=>{
         console.log(error)
