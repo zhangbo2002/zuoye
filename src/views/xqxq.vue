@@ -42,15 +42,16 @@
             <div class="xqxqtuanduixia">
                 <div
                     class="xqxqtuanduixiayang"
-                    v-for="(item,index) in app"
+                    v-for="(item,index) in teacher"
                     :key="index"
+                    @click="xqxqdian(index,item.teachers_id)"
                 >
                     <p class="xqxqtuanduixiayangyuan"><img
-                            :src="item.avatar"
+                            :src="item.teacher_avatar"
                             alt=""
                             class="xqxqtuanduixiayangyuantu"
                         ></p>
-                    <p class="xqxqtuanduixiayangyuan1">{{item.real_name}}</p>
+                    <p class="xqxqtuanduixiayangyuan1">{{item.teacher_name}}</p>
                 </div>
             </div>
         </div>
@@ -114,10 +115,15 @@ export default {
       bb:'',
       cc:'',
       xxx:0,
-
+        teacher:[]
     };
   },
   methods: {
+    xqxqdian(index,id){
+      console.log(id)
+        this.$router.push('/xq')
+        this.$router.commit('jiangshi',{shuju:this.teacher,id:id})
+    },
     chu() {
       this.show = true;
     },
@@ -145,7 +151,8 @@ export default {
       this.bb = ''
       this.aa = ''
       this.cc = '3px solid red'
-    }
+    },
+    
   },
   mounted() {
     console.log(111);
@@ -167,8 +174,9 @@ export default {
     this.xianjia = this.arr.price / 100 + ".00";
     var aaa = await qin.get("/teacher/search/attrs");
     this.app = aaa.data.data.list;
+    this.teacher = res.data.data.teachers
     this.zuihou = this.add.teachers;
-    console.log(qqq, "xijie");
+    console.log(res, "qweqweqwe");
   },
   computed: {},
   watch:{

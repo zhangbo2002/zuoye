@@ -69,6 +69,11 @@ const routes = [
     path:'/xqxq/:id',
     name:'xqxq',
     component:()=>import('@/views/xqxq.vue')
+  },
+  {
+    path:'/zxxq',
+    name:'zxxq',
+    component:()=>import('@/views/zxxq.vue')
   }
 ]
 

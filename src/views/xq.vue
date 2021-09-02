@@ -44,7 +44,6 @@ export default {
            let res = await qin.post('/teacher/mainCourse',
             {page: 1, limit: 10, teacher_id:this.$store.state.xqzy.id})
             console.log(res)
-            this.ke = res.data.data.list
         this.arr =  res.data.data.list
         // console.log(this.arr,'xiaogabenside')
   },
